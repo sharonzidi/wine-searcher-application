@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wines.mapper.ProfessionalWineReviewMapper">
+
+
+  <!--findAllUser-->
+  <select id="selectAll" resultType="professionalWineReview">
+    select * from ProfessionalWineReview
+  </select>
+
+  <select id="findByTitle" resultType="professionalWineReview">
+    select * from ProfessionalWineReview where wineTitle=#{wineTitle} limit 1
+  </select>
+
+
+  <select id="selectWithOrder" resultType="professionalWineReview">
+
+    select * from ProfessionalWineReview where price is not null
+                                           and country is not NULL
+                                           and points is not null
+                                           and winery is not null
+                                            order by
+                <if test='filter=="Points"'>Points desc</if>
+                <if test='filter=="Price"'>Price desc</if>
+                <if test='filter=="priceLow"'>Price</if>
+                <if test='filter=="Country"'>Country</if>
+                <if test='filter=="Winery"'>Winery</if>
+  </select>
+
+  <select id="selectCountry" resultType="professionalWineReview">
+    select Country from ProfessionalWineReview limit 5
+  </select>
+
+
+</mapper>
